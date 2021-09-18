@@ -20,8 +20,11 @@ import { MenuInf } from "./components/MenuInf";
 // }
 
 function App(props) {
-  const [state, setstate] = useState("");
-
+  //Colocar Barco
+  const [barco, setBarco] = useState(false);
+  const ToggleClass = () => {
+    setBarco(!barco); 
+  };
   //ARREGLO
   let matrix = Array(100).fill(0);
   //let matrix = Array(100).fill(0).map((key, keyindex) => keyindex);
@@ -34,12 +37,12 @@ function App(props) {
           <Col className="mb-3">
             <h4>Player</h4>
             <div className="tablero">
-            {matrix.map((e, key) => {
+              {matrix.map((pa, key) => {
                 return (
                   <div
-                    className={"coordenada"}
+                    onClick={() => ToggleClass()}
+                    className={barco ? "coordenada_activa" : "coordenada"}
                     key={key}
-                    //className="square"
                   />
                 );
               })}
@@ -48,10 +51,13 @@ function App(props) {
           <Col className="mb-3">
             <h4>IA</h4>
             <div className="tablero-maquina">
-              {matrix.map((e, key) => {
+              {matrix.map((ia, key) => {
                 return (
                   <div
-                    className={"coordenada"}
+                    className={
+                      "coordenada" +
+                      (barco === "coordenada" ? " iluminado" : "")
+                    }
                     key={key}
                     //className="square"
                   />
@@ -59,7 +65,7 @@ function App(props) {
               })}
             </div>
           </Col>
-          <Col className="mb-3">
+          {/* <Col className="mb-3">
             <h4>Testeando tablero</h4>
             <div className="tablero-prueba">
               <div className="ship fragata-container" draggable="true">
@@ -85,9 +91,9 @@ function App(props) {
                 <div id="battleship-4"></div>
               </div>
             </div>
-          </Col>
+          </Col> */}
         </Row>
-        <button>Start</button>
+        {/* <button>Start</button> */}
         <MenuInf />
       </Container>
     </Container>

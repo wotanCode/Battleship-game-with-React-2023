@@ -65,3 +65,9 @@
   margin: 10px;
   display: flex;
 }
+.coordenada{
+  background-color: white;
+}
+.coordenada_activa{
+  background-color: orange;
+}
