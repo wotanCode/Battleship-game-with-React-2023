@@ -51,15 +51,12 @@ function App(props) {
           <Col className="mb-3">
             <h4>IA</h4>
             <div className="tablero-maquina">
-              {matrix.map((ia, key) => {
+            {matrix.map((pa, key) => {
                 return (
                   <div
-                    className={
-                      "coordenada" +
-                      (barco === "coordenada" ? " iluminado" : "")
-                    }
+                    onClick={() => ToggleClass()}
+                    className={barco ? "coordenada_activa" : "coordenada"}
                     key={key}
-                    //className="square"
                   />
                 );
               })}
