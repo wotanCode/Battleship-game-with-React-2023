@@ -1,6 +1,6 @@
 # Instrucciones
 
-Ejecuta los siguientes comandos en este orden:
+Una vez descargada la carpeta, entra en ella y ejecuta los siguientes comandos en este orden:
 
 ### `npm install`
 ### `npm i bootstrap`
