@@ -10,15 +10,21 @@ import "../css/app.css";
 import { MenuSup } from "./components/MenuSup";
 import { MenuInf } from "./components/MenuInf";
 
-function creatematrix() {
-  const e = React.createElement;
-  for (let i=0; i++; i<100){
-    return e('div', null, null);
-  }
-}
+// function creatematrix() {
+//   const square = React.createElemente;
+//   const maquina_t = document.querySelector(".tablero-maquina");
+//   for (let i = 0; i++; i < 100) {
+//     square("div", null, null);
+//     maquina_t.appendChild(square);
+//   }
+// }
 
-function App() {
+function App(props) {
   const [state, setstate] = useState("");
+
+  //ARREGLO
+  let matrix = Array(100).fill(0);
+  //let matrix = Array(100).fill(0).map((key, keyindex) => keyindex);
 
   return (
     <Container fluid id="windoned">
@@ -28,114 +34,29 @@ function App() {
           <Col className="mb-3">
             <h4>Player</h4>
             <div className="tablero">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
+            {matrix.map((e, key) => {
+                return (
+                  <div
+                    className={"coordenada"}
+                    key={key}
+                    //className="square"
+                  />
+                );
+              })}
             </div>
           </Col>
           <Col className="mb-3">
             <h4>IA</h4>
-            <div className="tablero">
-            {
-                creatematrix()
-            }
+            <div className="tablero-maquina">
+              {matrix.map((e, key) => {
+                return (
+                  <div
+                    className={"coordenada"}
+                    key={key}
+                    //className="square"
+                  />
+                );
+              })}
             </div>
           </Col>
           <Col className="mb-3">
