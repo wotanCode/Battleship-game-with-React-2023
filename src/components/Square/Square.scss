@@ -1,0 +1,23 @@
+.square {
+  width: 40px;
+  height: 40px;
+  border: 1px black solid;
+  padding: 0px;
+  color: black;
+}
+
+.hidden {
+  background-color: #F0F0F0;
+}
+
+.selected {
+  background-color: yellow;
+}
+
+.ship {
+  background-color: aqua;
+}
+
+.destroyed {
+  background-color: brown;
+}
