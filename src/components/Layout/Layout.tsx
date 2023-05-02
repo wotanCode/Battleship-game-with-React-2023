@@ -33,18 +33,6 @@ const Layout = (): JSX.Element => {
     dispatch(setPlaceShip(position));
   }
 
-  // reinicia el juego
-  const handleRestartGame = () => {
-    dispatch(setRestartGame())
-  }
-
-  // Inicia el juego
-  const handleStartGame = () => {
-    dispatch(setStartGame())
-  }
-
-  //Dispara enemigo
-  //colocar handler aqui
 
   // motor de pasos.
   switch (phase) {
@@ -61,7 +49,7 @@ const Layout = (): JSX.Element => {
 
           // Boton primario
           primayButtonText={'Reiniciar partida'}
-          handleCLickPrimaryButton={handleRestartGame}
+          handleCLickPrimaryButton={() => dispatch(setRestartGame())}
         />
       )
     case 'endGame':
@@ -78,7 +66,7 @@ const Layout = (): JSX.Element => {
 
           // Boton primario
           primayButtonText={'Reiniciar partida'}
-          handleCLickPrimaryButton={handleRestartGame}
+          handleCLickPrimaryButton={() => dispatch(setRestartGame())}
         />
       )
 
@@ -97,7 +85,7 @@ const Layout = (): JSX.Element => {
 
           // Boton primario
           primayButtonText={'Empezar partida'}
-          handleCLickPrimaryButton={handleStartGame}
+          handleCLickPrimaryButton={() => dispatch(setStartGame())}
         />
       )
   }

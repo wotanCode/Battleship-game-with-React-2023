@@ -11,7 +11,6 @@ type BoardT = {
 const Board = ({ boardStatus, onSquareClick }: BoardT): JSX.Element => {
 
   return (
-
     <div className='boardContainer'>
       {Object.keys(boardStatus).map((key) => {
         return (

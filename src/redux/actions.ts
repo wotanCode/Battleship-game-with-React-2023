@@ -8,7 +8,7 @@ export const setPlaceShip = (position: string) => {
   return {
     type: 'PLACE_SHIP',
     payload: {
-      position
+      position,
     }
   };
 };
@@ -19,13 +19,3 @@ export const setStartGame = () => {
     type: 'START_GAME',
   };
 };
-
-
-// export const selectSquare = (position: string) => {
-//   return {
-//     type: 'SELECT_SQUARE',
-//     payload: {
-//       position
-//     }
-//   };
-// };

@@ -1,5 +1,4 @@
 import { GameActionT } from "./types";
-
 interface BoardState {
   playerBoard: {
     [key: string]: 0 | 1 | 2 | 3;
@@ -12,6 +11,36 @@ interface BoardState {
   winner?: 'Jugador' | 'Computador'
   turn: 'Jugador' | 'Computador',
   ammo: 0 | 1 | 2 | 3
+}
+
+function generateEnemyBoard() {
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'];
+  const enemyBoard: { [key: string]: 0 | 1 | 2 | 3 } = {};
+
+  for (const letter of letters) {
+    for (let i = 1; i <= 8; i++) {
+      enemyBoard[`${letter}${i}`] = 0;
+    }
+  }
+
+  let count = 0;
+  while (count < 16) {
+    const position = getRandomPosition();
+    if (enemyBoard[position] === 0) {
+      enemyBoard[position] = 1;
+      count++;
+    }
+  }
+
+  return enemyBoard;
+}
+
+// Funcion para obtener una posicion del tablero aleatoriamente.
+function getRandomPosition() {
+  const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
+  const randomLetter = letters[Math.floor(Math.random() * letters.length)]
+  const randomNumber = Math.floor(Math.random() * 8) + 1
+  return `${randomLetter}${randomNumber}`
 }
 
 const initialGameState: BoardState = {
@@ -50,8 +79,12 @@ const rootReducer = (state = initialGameState, action: GameActionT) => {
 
     case 'START_GAME':
       const newPhase = 'playing'
+      let newEnemyBoard = state.enemyBoard;
+      newEnemyBoard = generateEnemyBoard();
+      console.log('newEnemyBoard', newEnemyBoard)
       return {
         ...state,
+        enemyBoard: newEnemyBoard,
         phase: newPhase,
       };
 
@@ -75,6 +108,5 @@ const rootReducer = (state = initialGameState, action: GameActionT) => {
       return state;
   }
 };
-
 
 export default rootReducer
