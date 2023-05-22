@@ -6,8 +6,7 @@ type PlayersT = 'player-1' | 'player-2';
 
 export type GameStateT = {
   appPhase: AppPhases;
-  winner?: PlayersT
-  turn?: PlayersT,
+  winner?: PlayersT & 'TIE';
   // Dimensiones del tablero con el que se va a crear
   boardDimension: number,
   // Status del tablero de los jugadores
