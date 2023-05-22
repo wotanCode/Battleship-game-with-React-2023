@@ -1,4 +1,4 @@
-import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT } from "./types";
+import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT, Player1AttackEnemyT } from "./types";
 
 //INICIAR LA APP
 export const setStarApp = (): StartAppT => {
@@ -64,25 +64,12 @@ export const setPhaseGamingVsPc = (): PhasePlayingVsPcTurnT => {
   };
 };
 
-
-
-
-
-
-
-
-// reinicia el juego con los parametros ya iniciados por el jugador
-export const setRestartGame = () => {
+//Ataca tablero enemigo
+export const setPlaye1AttackEnemy = (position: string): Player1AttackEnemyT => {
   return {
-    type: 'RESTART_GAME',
-  };
-};
-
-
-
-// Comenzar la partida
-export const setStartGame = () => {
-  return {
-    type: 'START_GAME',
-  };
-};
+    type: 'PLAYER_1_ATTACK_ENEMY',
+    payload: {
+      position,
+    }
+  }
+}

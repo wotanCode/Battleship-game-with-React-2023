@@ -1,6 +1,6 @@
 export type AppPhases = 'dashboard_menu_app' | 'setting_game' | 'placing_ships' | 'playingVsPc' | 'end_game';
 
-export type ShipStatusT = 'hidden' | 'selected' | 'shipPlayer1' | 'shipPlayer2' | 'destroyed';
+export type ShipStatusT = 'hidden' | 'miss' | 'shipPlayer1' | 'shipPlayer2' | 'hit';
 
 type PlayersT = 'player-1' | 'player-2';
 
@@ -64,18 +64,16 @@ export type PlaceShipActionT = {
   }
 }
 
+// Cuando esto se ejecuta posiciona las piezas en el tablero enemigo NPC
 export type PhasePlayingVsPcTurnT = {
   type: 'PHASE_START_GAMING_VS_PC';
 }
 
-
-
-export type InitialGamepActionT = {
-  type: 'INITIAL_STATE';
-}
-
-export type StartGameActionT = {
-  type: 'START_GAME';
+export type Player1AttackEnemyT = {
+  type: 'PLAYER_1_ATTACK_ENEMY';
+  payload: {
+    position: string;
+  }
 }
 
 export type EndGameActionT = {
@@ -94,9 +92,6 @@ export type GameActionsT =
   PhasePlaceShipActionT |
   PlaceShipActionT |
   PhasePlayingVsPcTurnT |
-
-
-  InitialGamepActionT |
-  StartGameActionT |
+  Player1AttackEnemyT |
 
   EndGameActionT

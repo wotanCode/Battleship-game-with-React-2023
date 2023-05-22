@@ -11,7 +11,7 @@
   background-color: #F0F0F0;
 }
 
-.selected {
+.miss {
   background-color: yellow;
 }
 
@@ -19,6 +19,6 @@
   background-color: #03e9f4;
 }
 
-.destroyed {
-  background-color: brown;
+.hit {
+  background-color: #fc160b;
 }

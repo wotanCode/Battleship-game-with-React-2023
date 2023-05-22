@@ -1,5 +1,16 @@
 import { AppPhases, GameActionsT, GameStateT, ShipStatusT } from "./types";
 
+
+const getRandomPosition = (boardStatus: ShipStatusT[][]) => {
+  const rows = boardStatus.length;
+  const cols = boardStatus[0]?.length;
+
+  const randomRow = Math.floor(Math.random() * rows);
+  const randomCol = Math.floor(Math.random() * cols);
+
+  return { row: randomRow, col: randomCol };
+};
+
 // Función para generar el arreglo enemigo con posiciones aleatorias
 const generateEnemyBoard = (rows: number, columns: number, shipCount: number) => {
   const boardStatus = [];
@@ -21,7 +32,7 @@ const generateEnemyBoard = (rows: number, columns: number, shipCount: number) =>
     const randomColumn = Math.floor(Math.random() * columns);
 
     if (boardStatus[randomRow][randomColumn] === 'hidden') {
-      boardStatus[randomRow][randomColumn] = 'shipPlayer1';
+      boardStatus[randomRow][randomColumn] = 'shipPlayer2';
       shipsPlaced++;
     }
   }
@@ -97,8 +108,9 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
 
     // posicionando piezas en el tablero
     case 'PLACE_SHIP':
-      const { position } = action.payload;
-      const [row, col]: number[] = position.split(',').map(Number);
+      const { position: shipPosition } = action.payload;
+
+      const [row, col]: number[] = shipPosition.split(',').map(Number);
 
       const newBoard: { boardStatus: ShipStatusT[][] } = {
         ...state.playerOneBoard ?? {},
@@ -122,7 +134,6 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
       }
 
     // En este etapa juegan usuario contra computadora
-    // En este etapa juegan usuario contra computadora
     case 'PHASE_START_GAMING_VS_PC':
       const newPhase = 'playingVsPc';
 
@@ -142,28 +153,81 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
         playerTwoBoard,
       };
 
+    // Player 1 atacando al enemigo
+    case 'PLAYER_1_ATTACK_ENEMY':
+      const { position } = action.payload;
+      const [rowatk, colAtk]: number[] = position.split(',').map(Number);
 
-    // Pone el juego en estado base - Tambien sirve para reiniciar el juego
-    // case 'INITIAL_STATE':
-    //   // const playerOneBoard = Array.from({ length }, () => Array(boardLength).fill('hidden'));
-    //   // const playerTwoBoard = Array.from({ length }, () => Array(boardLength).fill('hidden'));
-    //   return {
-    //     'hola'
-    //   }
+      const player2Board = state.playerTwoBoard;
+      const currentContentBoard2 = player2Board?.boardStatus[rowatk][colAtk];
 
-    case 'START_GAME':
-      // const newPhase = 'playing'
-      // let newEnemyBoard = state.enemyBoard;
-      // newEnemyBoard = generateEnemyBoard();
-      // console.log('newEnemyBoard', newEnemyBoard)
-      // return {
-      //   ...state,
-      //   enemyBoard: newEnemyBoard,
-      //   phase: newPhase,
-      return 'hola bebe'
-    // };
+      let player2Ships = state.playerTwoShipLeft;
 
+      let newContent = '';
 
+      if (currentContentBoard2 === 'hidden') {
+        newContent = 'miss';
+      } else if (currentContentBoard2 === 'shipPlayer2') {
+        newContent = 'hit';
+        player2Ships = player2Ships - 1;
+      } else if (currentContentBoard2 === 'miss' || currentContentBoard2 === 'hit') {
+        return { ...state };
+      }
+
+      // Crear una copia actualizada del tablero enemigo
+      const updatedBoard = {
+        ...player2Board,
+        boardStatus: player2Board?.boardStatus.map((rowArray) => [...rowArray]),
+      };
+
+      if (updatedBoard.boardStatus) {
+        updatedBoard.boardStatus[rowatk][colAtk] = newContent as ShipStatusT;
+      }
+
+      let newContentPlayer1 = '';
+      let player1Ships = state.playerOneShipLeft;
+
+      // Ataque del enemigo (computadora) al jugador 1
+      const player1Board = state.playerOneBoard;
+
+      if (!player1Board || !player1Board.boardStatus) {
+        return { ...state };
+      }
+
+      let randomRow: number, randomCol: number;
+
+      ({ row: randomRow, col: randomCol } = getRandomPosition(player1Board.boardStatus));
+      let currentContentBoard1 = player1Board.boardStatus[randomRow][randomCol];
+
+      while (currentContentBoard1 === 'miss' || currentContentBoard1 === 'hit') {
+        ({ row: randomRow, col: randomCol } = getRandomPosition(player1Board.boardStatus));
+        currentContentBoard1 = player1Board.boardStatus[randomRow][randomCol];
+      }
+
+      if (currentContentBoard1 === 'hidden') {
+        newContentPlayer1 = 'miss';
+      } else if (currentContentBoard1 === 'shipPlayer1') {
+        newContentPlayer1 = 'hit';
+        player1Ships = player1Ships - 1;
+      }
+
+      // Crear una copia actualizada del tablero del jugador 1
+      const updatedPlayer1Board = {
+        ...player1Board,
+        boardStatus: player1Board.boardStatus.map((rowArray) => [...rowArray]),
+      };
+
+      if (updatedPlayer1Board.boardStatus) {
+        updatedPlayer1Board.boardStatus[randomRow][randomCol] = newContentPlayer1 as ShipStatusT;
+      }
+
+      return {
+        ...state,
+        playerTwoBoard: updatedBoard,
+        playerTwoShipLeft: player2Ships,
+        playerOneBoard: updatedPlayer1Board,
+        playerOneShipLeft: player1Ships,
+      };
 
     default:
       return state;

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPhasePlaceShip, setPlaceShip, setSettingGame, setStarApp } from '../../redux/actions';
+import { setPhasePlaceShip, setPlaceShip, setPlaye1AttackEnemy, setSettingGame, setStarApp } from '../../redux/actions';
 import GameLayout from "../GameLayout/GameLayout.tsx";
 import "./Layout.scss";
 import { GameStateT } from "../../redux/types.ts";
@@ -17,7 +17,7 @@ const Layout = (): JSX.Element => {
   }
 
   const handlep1AttackEnemy = (position: string) => {
-    console.log('Aqui va la funcion donde yo voy golpeando', position)
+    dispatch(setPlaye1AttackEnemy(position));
   }
 
   // // motor de pasos.
