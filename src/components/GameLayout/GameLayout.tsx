@@ -61,7 +61,7 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
         </div>
 
         <div>
-          <h2>Player-2</h2>
+          <h2 className="gameLayoutWinnerTitle">Player-2</h2>
           {getDataStore.playerTwoBoard ? <Board boardStatus={getDataStore.playerTwoBoard} onSquareClick={player2Clickhandler} /> : ''}
           <div className="GameLayaoutSubBoardMessage">
             {subBoardMessage('Player-2')}
