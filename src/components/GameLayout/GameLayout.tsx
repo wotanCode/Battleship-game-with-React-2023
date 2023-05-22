@@ -46,8 +46,8 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
   return (
     <div className='gameLayoutContainer'>
       {getDataStore.winner && (
-        <h2>
-          {(winner === 'Player-1' || winner === 'Player-2') ? `${winner} gana!` : 'Empate'}
+        <h2 className="gameLayoutWinnerTitle">
+          {(winner === 'Player-1' || winner === 'Player-2') ? `¡${winner} gana!` : 'Empate'}
         </h2>
       )}
 
