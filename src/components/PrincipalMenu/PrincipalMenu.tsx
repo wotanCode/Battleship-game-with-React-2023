@@ -2,13 +2,17 @@ import Button from "../Button/Button";
 import "./PrincipalMenu.scss";
 
 type PrincipalMenuT = {
-  onClick: () => void,
+  singlerPlayerOnClick: () => void,
+  aboutMeOnClick: () => void,
 }
 
-const PrincipalMenu = ({ onClick }: PrincipalMenuT): JSX.Element => {
+const PrincipalMenu = ({ singlerPlayerOnClick, aboutMeOnClick }: PrincipalMenuT): JSX.Element => {
 
   return (
-    <Button onClick={onClick} text="Partida de un jugador" style="primaryBtn" />
+    <div className="principalMenuContainer">
+      <Button onClick={singlerPlayerOnClick} text="Partida de un jugador" style="primaryBtn" />
+      <Button onClick={aboutMeOnClick} text="Acerca de mi..." style="secondaryBtn" />
+    </div>
   )
 };
 

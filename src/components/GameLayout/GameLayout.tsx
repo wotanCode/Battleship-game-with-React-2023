@@ -12,7 +12,7 @@ type GameLayoutT = {
   winner?: WinnerT;
 }
 
-type ExcludedPhasesT = 'dashboard_menu_app' | 'setting_game';
+type ExcludedPhasesT = 'dashboard_menu_app' | 'setting_game' | 'about_me';
 type PhasesInGamingT = Exclude<AppPhases, ExcludedPhasesT>;
 
 type playersMessagesT = {

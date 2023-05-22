@@ -1,0 +1,83 @@
+.aboutMeContainer {
+    p {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    #background-image {
+        width: 100%;
+        border-top-right-radius: 5px;
+        border-top-left-radius: 5px;
+        height: 150px;
+    }
+
+    .card {
+        width: 100%;
+        margin: 0 auto;
+        background-color: #F8F7F9;
+        border-radius: 5px;
+        box-shadow: 10px 10px 10px rgba(25, 30, 31, 0.25), 0 10px 10px rgba(25, 30, 31, 0.25), -10px 10px 10px rgba(25, 30, 31, 0.25);
+    }
+
+    .flex {
+        margin: 15px;
+        display: flex;
+        height: 15px;
+        aligh-items: center;
+        padding-left: 10px;
+        padding-bottom: 5px;
+    }
+
+    .flex p,
+    .flex img {
+        display: inline;
+    }
+
+    .flex p {
+        color: #545454;
+        font-weight: 100;
+        font-size: 14px;
+        margin-left: 10px;
+    }
+
+    .first {
+        margin-top: 30px;
+    }
+
+    .flex:last-of-type {
+        padding-bottom: 30px;
+    }
+
+    #profile-image {
+        width: 300px;
+        height: 300px;
+        border: 3px solid white;
+        border-radius: 50%;
+        position: relative;
+        top: -80px;
+    }
+
+    .name {
+        text-align: center;
+        margin-top: -50px;
+    }
+
+    #users-name {
+        font-size: 25px;
+        color: #4e4a4a;
+    }
+
+    #job-title {
+        color: #a0a0a0;
+        font-weight: 100;
+        font-size: 15px;
+    }
+
+    #github,
+    #linkedin {
+        width: 15px;
+        position: relative;
+        top: 5px;
+        margin-right: 6px;
+    }
+}

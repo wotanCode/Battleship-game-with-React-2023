@@ -1,4 +1,4 @@
-import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT, Player1AttackEnemyT, WinnerT, EndGameActionT } from "./types";
+import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT, Player1AttackEnemyT, WinnerT, EndGameActionT, PhaseAboutMeT } from "./types";
 
 //INICIAR LA APP
 export const setStarApp = (): StartAppT => {
@@ -79,6 +79,12 @@ export const setPhaseEndGame = (winner: WinnerT): EndGameActionT => {
   return {
     type: 'PHASE_END_GAME',
     payload: winner
+  }
+}
 
+// Phase about me
+export const setPhaseAboutMe = (): PhaseAboutMeT => {
+  return {
+    type: 'PHASE_ABOUT_ME',
   }
 }

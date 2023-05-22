@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPhaseEndGame, setPhasePlaceShip, setPlaceShip, setPlaye1AttackEnemy, setSettingGame, setStarApp } from '../../redux/actions';
+import { setPhaseAboutMe, setPhaseEndGame, setPhasePlaceShip, setPlaceShip, setPlaye1AttackEnemy, setSettingGame, setStarApp } from '../../redux/actions';
 import GameLayout from "../GameLayout/GameLayout.tsx";
 import "./Layout.scss";
 import { GameStateT } from "../../redux/types.ts";
 import PrincipalMenu from "../PrincipalMenu/PrincipalMenu.tsx";
 import SettingGameMenu from "../SettingGameMenu/SettingGameMenu.tsx";
 import { useEffect } from "react";
+import AboutMe from "../AboutMe/AboutMe.tsx";
 
 const Layout = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -74,10 +75,15 @@ const Layout = (): JSX.Element => {
         />
       )
 
+    case 'about_me':
+      return (
+        <AboutMe />
+      )
+
     case 'dashboard_menu_app':
     default:
       return (
-        <PrincipalMenu onClick={() => dispatch(setSettingGame())} />
+        <PrincipalMenu singlerPlayerOnClick={() => dispatch(setSettingGame())} aboutMeOnClick={() => dispatch(setPhaseAboutMe())} />
       )
   }
 };

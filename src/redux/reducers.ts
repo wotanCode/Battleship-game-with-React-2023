@@ -246,6 +246,14 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
         winner,
       }
 
+    case "PHASE_ABOUT_ME":
+      const aboutPhase = 'about_me';
+
+      return {
+        ...state,
+        appPhase: aboutPhase,
+      }
+
     default:
       return state;
   }
