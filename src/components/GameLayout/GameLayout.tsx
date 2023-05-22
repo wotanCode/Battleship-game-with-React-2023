@@ -20,7 +20,6 @@ type playersMessagesT = {
   'Player-2': string
 }
 
-
 const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLayoutT): JSX.Element => {
   const getDataStore = useSelector((state: GameStateT) => state);
   const dispatch = useDispatch();
