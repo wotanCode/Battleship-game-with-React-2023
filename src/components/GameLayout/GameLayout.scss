@@ -1,4 +1,15 @@
-.ScreenGame {
-  display: flex;
-  gap: 56px;
+.gameLayoutContainer {
+  .gameLayoutCScreenGame {
+    display: flex;
+    gap: 56px;
+  }
+
+  .gameLayoutButtons {
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 40px auto;
+    gap: 16px;
+  }
 }

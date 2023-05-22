@@ -6,7 +6,8 @@
   color: black;
 }
 
-.hidden {
+.hidden,
+.shipPlayer2 {
   background-color: #F0F0F0;
 }
 
@@ -14,8 +15,8 @@
   background-color: yellow;
 }
 
-.ship {
-  background-color: aqua;
+.shipPlayer1 {
+  background-color: #03e9f4;
 }
 
 .destroyed {

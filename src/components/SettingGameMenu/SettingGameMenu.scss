@@ -1,0 +1,43 @@
+.settingMenuContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .settingMenuForm {
+        display: flex;
+        flex-direction: column;
+
+        .settingMenuFormInputs {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 16px;
+
+            .settingMenuLabel {
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: 700;
+            }
+
+            .number {
+                padding: 10px;
+                border: 1px solid transparent;
+                outline: 1px solid darken(#729B79, 20%);
+                font-family: 'Consolas', sans-serif;
+                font-size: 30px;
+                font-weight: 700;
+                text-align: center;
+                transition: outline .2s linear;
+
+                &:focus {
+                    border: 1px solid darken(#729B79, 20%);
+                    outline: 1px solid transparent;
+                }
+            }
+
+            .settingMenuNote {
+                font-family: 'Courier New', Courier, monospace;
+                font-weight: 500;
+                color: #777777cb;
+            }
+        }
+    }
+}

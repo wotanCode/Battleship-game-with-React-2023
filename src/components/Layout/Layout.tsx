@@ -1,92 +1,50 @@
 import { useDispatch, useSelector } from "react-redux";
-import { setPlaceShip, setRestartGame, setStartGame } from '../../redux/actions';
+import { setPhasePlaceShip, setPlaceShip, setSettingGame, setStarApp } from '../../redux/actions';
 import GameLayout from "../GameLayout/GameLayout.tsx";
 import "./Layout.scss";
-
-export type phaseStateT = 'place-ships' | 'playing' | 'endGame';
-export type winnerT = 'Jugador' | 'Computador';
-export type shipStatusT = 0 | 1 | 2 | 3;
-
-export type GameStateT = {
-  phase: phaseStateT;
-  shipsLeft: number;
-  winner?: winnerT;
-  playerBoard: {
-    [key: string]: shipStatusT;
-  };
-  enemyBoard: {
-    [key: string]: shipStatusT;
-  };
-  ammo: number;
-}
+import { GameStateT } from "../../redux/types.ts";
+import PrincipalMenu from "../PrincipalMenu/PrincipalMenu.tsx";
+import SettingGameMenu from "../SettingGameMenu/SettingGameMenu.tsx";
 
 const Layout = (): JSX.Element => {
-  const {
-    playerBoard, enemyBoard, phase,
-    shipsLeft, winner, ammo
-  } = useSelector((state: GameStateT) => state);
   const dispatch = useDispatch();
+  const getStore = useSelector((state: GameStateT) => state);
 
-  // handlers
-  // Colocar o sacar naves
   const handlePlaceShips = (position: string) => {
-    dispatch(setPlaceShip(position));
+    if (getStore.playerOneplacingShips > 0 && getStore.playerTwoplacingShips > 0) {
+      dispatch(setPlaceShip(position));
+    }
   }
 
+  const handlep1AttackEnemy = (position: string) => {
+    console.log('Aqui va la funcion donde yo voy golpeando', position)
+  }
 
-  // motor de pasos.
-  switch (phase) {
-    case 'playing':
+  // // motor de pasos.
+  switch (getStore.appPhase) {
+    case 'setting_game':
       return (
-        <GameLayout
-          phase={phase}
-          playerBoard={playerBoard}
-          enemyBoard={enemyBoard}
-
-          instructionMessage={'Derrota a tu enemigo'}
-
-          ammoOrShipsLeft={ammo}
-
-          // Boton primario
-          primayButtonText={'Reiniciar partida'}
-          handleCLickPrimaryButton={() => dispatch(setRestartGame())}
-        />
+        <SettingGameMenu onClickStart={() => dispatch(setPhasePlaceShip())} onClickExit={() => dispatch(setStarApp())} />
       )
-    case 'endGame':
+
+    case 'placing_ships':
       return (
         <GameLayout
-          phase={phase}
-          winner={winner}
-          playerBoard={playerBoard}
-          enemyBoard={enemyBoard}
-
-          instructionMessage={'Fin de la partida'}
-
-          ammoOrShipsLeft={ammo}
-
-          // Boton primario
-          primayButtonText={'Reiniciar partida'}
-          handleCLickPrimaryButton={() => dispatch(setRestartGame())}
+          player1Clickhandler={handlePlaceShips}
         />
       )
 
-    case 'place-ships':
+    case 'playingVsPc':
+      return (
+        <GameLayout
+          player2Clickhandler={handlep1AttackEnemy}
+        />
+      )
+
+    case 'dashboard_menu_app':
     default:
       return (
-        <GameLayout
-          phase={phase}
-          playerBoardClicking={handlePlaceShips}
-          playerBoard={playerBoard}
-          enemyBoard={enemyBoard}
-
-          instructionMessage={'Posiciona tus piezas en el tablero'}
-
-          ammoOrShipsLeft={shipsLeft}
-
-          // Boton primario
-          primayButtonText={'Empezar partida'}
-          handleCLickPrimaryButton={() => dispatch(setStartGame())}
-        />
+        <PrincipalMenu onClick={() => dispatch(setSettingGame())} />
       )
   }
 };

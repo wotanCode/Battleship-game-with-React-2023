@@ -1,10 +1,9 @@
 import "./Board.scss";
 import Square from '../Square/Square.tsx'
+import { ShipStatusT } from "../../redux/types.ts";
 
 type BoardT = {
-  boardStatus: {
-    [key: string]: 0 | 1 | 2 | 3;
-  };
+  boardStatus: { boardStatus: ShipStatusT[][] };
   onSquareClick?: (position: string) => void;
 }
 
@@ -12,17 +11,19 @@ const Board = ({ boardStatus, onSquareClick }: BoardT): JSX.Element => {
 
   return (
     <div className='boardContainer'>
-      {Object.keys(boardStatus).map((key) => {
-        return (
-          <Square
-            key={`square-${key}`}
-            statusNumbers={boardStatus[key]}
-            onSquareClick={onSquareClick ? () => onSquareClick(key) : undefined}
-          />
-        )
-      })}
+      {boardStatus.boardStatus.map((row, rowIndex) => (
+        <div key={`row-${rowIndex}`} className="boardRow">
+          {row.map((squareStatus, columnIndex) => (
+            <Square
+              key={`square-${rowIndex}-${columnIndex}`}
+              statusSquare={squareStatus}
+              onSquareClick={onSquareClick ? () => onSquareClick(`${rowIndex},${columnIndex}`) : undefined}
+            />
+          ))}
+        </div>
+      ))}
     </div>
-  )
+  );
 };
 
 export default Board;

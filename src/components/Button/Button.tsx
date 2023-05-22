@@ -2,18 +2,32 @@ import "./Button.scss";
 
 type buttonT = {
   text: string;
-  handleCLick: () => void;
+  onClick: () => void;
+  style?: 'primaryBtn' | 'secondaryBtn' | 'disabledBtn';
+  isDisabled?: boolean;
 }
 
-const Button = ({ text, handleCLick }: buttonT): JSX.Element => {
+const Button = ({ text, onClick, style, isDisabled = false }: buttonT): JSX.Element => {
 
   return (
-    <button
-      className="color"
-      onClick={handleCLick}
-    >
-      {text}
-    </button>
+    <>
+      <button
+        onClick={onClick}
+        className={style}
+        disabled={isDisabled}
+      >
+        {text}
+        {style === 'primaryBtn' && (
+          <>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+          </>
+        )}
+      </button>
+
+    </>
   )
 };
 
