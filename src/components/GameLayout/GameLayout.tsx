@@ -20,11 +20,6 @@ type playersMessagesT = {
   'Player-2': string
 }
 
-const instructiveMessage: Record<string, string> = {
-  placing_ships: 'Posiciona tus naves!',
-  playing: '',
-  end_game: '',
-}
 
 const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLayoutT): JSX.Element => {
   const getDataStore = useSelector((state: GameStateT) => state);
@@ -33,8 +28,8 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
   const subBoardMessage = (player: keyof playersMessagesT) => {
     const message: Record<PhasesInGamingT, playersMessagesT> = {
       placing_ships: {
-        'Player-1': `¡Posiciona tus naves!: ${getDataStore.playerOneplacingShips}`,
-        'Player-2': `¡Posiciona tus naves!: ${getDataStore.playerTwoplacingShips}`,
+        'Player-1': `Coloca tus piezas: ${getDataStore.playerOneplacingShips}`,
+        'Player-2': `Coloca tus piezas: ${getDataStore.playerTwoplacingShips}`,
       },
       playingVsPc: {
         'Player-1': `Flota: ${getDataStore.playerOneShipLeft}`,
@@ -58,9 +53,9 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
 
       <div className='gameLayoutCScreenGame'>
         <div>
-          <h2>Player-1</h2>
+          <h2 className="gameLayoutPlayerTitle">Player-1</h2>
           {getDataStore.playerOneBoard ? <Board boardStatus={getDataStore.playerOneBoard} onSquareClick={player1Clickhandler} /> : ''}
-          <div>
+          <div className="GameLayaoutSubBoardMessage">
             {subBoardMessage('Player-1')}
           </div>
         </div>
@@ -68,14 +63,13 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
         <div>
           <h2>Player-2</h2>
           {getDataStore.playerTwoBoard ? <Board boardStatus={getDataStore.playerTwoBoard} onSquareClick={player2Clickhandler} /> : ''}
-          <div>
+          <div className="GameLayaoutSubBoardMessage">
             {subBoardMessage('Player-2')}
           </div>
         </div>
       </div>
 
       <div className="gameLayoutButtons">
-        <div>{instructiveMessage[getDataStore.appPhase]}</div>
 
         {getDataStore.appPhase === 'placing_ships' && getDataStore.playerOneplacingShips === 0 &&
           <Button
@@ -88,7 +82,7 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLa
         <Button
           text={'Volver al menu'}
           onClick={() => dispatch(setStarApp())}
-          style={getDataStore.appPhase === 'end_game' ? 'primaryBtn' : undefined}
+          style={getDataStore.appPhase === 'end_game' ? 'primaryBtn' : 'secondaryBtn'}
         />
       </div>
     </div >
