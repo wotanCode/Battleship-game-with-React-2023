@@ -1,4 +1,4 @@
-import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT, Player1AttackEnemyT } from "./types";
+import { SettingGameT, StartAppT, SettingUpdateNumShipsT, SettingUpdateBoardDimenssionT, SettingCreateBoardT, ShipStatusT, PhasePlaceShipActionT, PlaceShipActionT, PhasePlayingVsPcTurnT, Player1AttackEnemyT, WinnerT, EndGameActionT } from "./types";
 
 //INICIAR LA APP
 export const setStarApp = (): StartAppT => {
@@ -71,5 +71,14 @@ export const setPlaye1AttackEnemy = (position: string): Player1AttackEnemyT => {
     payload: {
       position,
     }
+  }
+}
+
+// Etapa final del juego
+export const setPhaseEndGame = (winner: WinnerT): EndGameActionT => {
+  return {
+    type: 'PHASE_END_GAME',
+    payload: winner
+
   }
 }

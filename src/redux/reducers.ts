@@ -15,6 +15,7 @@ const getRandomPosition = (boardStatus: ShipStatusT[][]) => {
 const generateEnemyBoard = (rows: number, columns: number, shipCount: number) => {
   const boardStatus = [];
 
+  // TODO el tablero ya existe, por lo que no es necesario crearlo de nuevo.
   for (let i = 0; i < rows; i++) {
     const row = [];
 
@@ -44,11 +45,11 @@ const generateEnemyBoard = (rows: number, columns: number, shipCount: number) =>
 
 const initialState: GameStateT = {
   appPhase: 'dashboard_menu_app',
-  boardDimension: 8,
-  playerOneplacingShips: 16,
-  playerTwoplacingShips: 16,
-  playerOneShipLeft: 16,
-  playerTwoShipLeft: 16,
+  boardDimension: 4,
+  playerOneplacingShips: 5,
+  playerTwoplacingShips: 5,
+  playerOneShipLeft: 5,
+  playerTwoShipLeft: 5,
 }
 
 const rootReducer = (state = initialState, action: GameActionsT) => {
@@ -60,7 +61,13 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
       appPhase = 'dashboard_menu_app';
       return {
         ...state,
+        playerOneplacingShips: 5,
+        playerTwoplacingShips: 5,
+        playerOneShipLeft: 5,
+        playerTwoShipLeft: 5,
+        boardDimension: 4,
         appPhase,
+        winner: undefined,
       }
 
     //Menu de configuracion de la partida
@@ -228,6 +235,16 @@ const rootReducer = (state = initialState, action: GameActionsT) => {
         playerOneBoard: updatedPlayer1Board,
         playerOneShipLeft: player1Ships,
       };
+
+    case "PHASE_END_GAME":
+      appPhase = 'end_game';
+      const winner = action.payload;
+
+      return {
+        ...state,
+        appPhase,
+        winner,
+      }
 
     default:
       return state;

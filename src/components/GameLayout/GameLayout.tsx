@@ -2,21 +2,22 @@ import "./GameLayout.scss";
 
 import Board from "../Board/Board.tsx";
 import Button from "../Button/Button.tsx";
-import { AppPhases, GameStateT } from "../../redux/types.ts";
+import { AppPhases, GameStateT, WinnerT } from "../../redux/types.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { setPhaseGamingVsPc, setStarApp } from "../../redux/actions.ts";
 
 type GameLayoutT = {
   player1Clickhandler?: (position: string) => void;
   player2Clickhandler?: (position: string) => void;
+  winner?: WinnerT;
 }
 
 type ExcludedPhasesT = 'dashboard_menu_app' | 'setting_game';
 type PhasesInGamingT = Exclude<AppPhases, ExcludedPhasesT>;
 
 type playersMessagesT = {
-  'player-1': string,
-  'player-2': string
+  'Player-1': string,
+  'Player-2': string
 }
 
 const instructiveMessage: Record<string, string> = {
@@ -25,23 +26,23 @@ const instructiveMessage: Record<string, string> = {
   end_game: '',
 }
 
-const GameLayout = ({ player1Clickhandler, player2Clickhandler }: GameLayoutT): JSX.Element => {
+const GameLayout = ({ player1Clickhandler, player2Clickhandler, winner }: GameLayoutT): JSX.Element => {
   const getDataStore = useSelector((state: GameStateT) => state);
   const dispatch = useDispatch();
 
   const subBoardMessage = (player: keyof playersMessagesT) => {
     const message: Record<PhasesInGamingT, playersMessagesT> = {
       placing_ships: {
-        'player-1': `¡Posiciona tus naves!: ${getDataStore.playerOneplacingShips}`,
-        'player-2': `¡Posiciona tus naves!: ${getDataStore.playerTwoplacingShips}`,
+        'Player-1': `¡Posiciona tus naves!: ${getDataStore.playerOneplacingShips}`,
+        'Player-2': `¡Posiciona tus naves!: ${getDataStore.playerTwoplacingShips}`,
       },
       playingVsPc: {
-        'player-1': `Flota: ${getDataStore.playerOneShipLeft}`,
-        'player-2': `Flota: ${getDataStore.playerTwoShipLeft}`,
+        'Player-1': `Flota: ${getDataStore.playerOneShipLeft}`,
+        'Player-2': `Flota: ${getDataStore.playerTwoShipLeft}`,
       },
       end_game: {
-        'player-1': `Flota: ${getDataStore.playerOneShipLeft}`,
-        'player-2': `Flota: ${getDataStore.playerTwoShipLeft}`,
+        'Player-1': `Flota: ${getDataStore.playerOneShipLeft}`,
+        'Player-2': `Flota: ${getDataStore.playerTwoShipLeft}`,
       },
     }
     return message[getDataStore.appPhase as PhasesInGamingT][player];
@@ -51,24 +52,24 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler }: GameLayoutT): 
     <div className='gameLayoutContainer'>
       {getDataStore.winner && (
         <h2>
-          {getDataStore.winner === 'player-1' ? '¡Player 1 gana!' : '¡Player 2 gana!'}
+          {(winner === 'Player-1' || winner === 'Player-2') ? `${winner} gana!` : 'Empate'}
         </h2>
       )}
 
       <div className='gameLayoutCScreenGame'>
         <div>
-          <h2>Jugador 1</h2>
+          <h2>Player-1</h2>
           {getDataStore.playerOneBoard ? <Board boardStatus={getDataStore.playerOneBoard} onSquareClick={player1Clickhandler} /> : ''}
           <div>
-            {subBoardMessage('player-1')}
+            {subBoardMessage('Player-1')}
           </div>
         </div>
 
         <div>
-          <h2>Jugador 2</h2>
+          <h2>Player-2</h2>
           {getDataStore.playerTwoBoard ? <Board boardStatus={getDataStore.playerTwoBoard} onSquareClick={player2Clickhandler} /> : ''}
           <div>
-            {subBoardMessage('player-2')}
+            {subBoardMessage('Player-2')}
           </div>
         </div>
       </div>
@@ -87,6 +88,7 @@ const GameLayout = ({ player1Clickhandler, player2Clickhandler }: GameLayoutT): 
         <Button
           text={'Volver al menu'}
           onClick={() => dispatch(setStarApp())}
+          style={getDataStore.appPhase === 'end_game' ? 'primaryBtn' : undefined}
         />
       </div>
     </div >

@@ -2,11 +2,13 @@ export type AppPhases = 'dashboard_menu_app' | 'setting_game' | 'placing_ships' 
 
 export type ShipStatusT = 'hidden' | 'miss' | 'shipPlayer1' | 'shipPlayer2' | 'hit';
 
-type PlayersT = 'player-1' | 'player-2';
+type PlayersT = 'Player-1' | 'Player-2' | 'tie';
+
+export type WinnerT = PlayersT | 'tie';
 
 export type GameStateT = {
   appPhase: AppPhases;
-  winner?: PlayersT & 'TIE';
+  winner?: WinnerT;
   // Dimensiones del tablero con el que se va a crear
   boardDimension: number,
   // Status del tablero de los jugadores
@@ -76,10 +78,9 @@ export type Player1AttackEnemyT = {
 }
 
 export type EndGameActionT = {
-  type: 'END_GAME';
-  payload: {
-    winner: 'Jugador' | 'Computador';
-  }
+  type: 'PHASE_END_GAME';
+  payload: WinnerT
+
 }
 
 export type GameActionsT =
@@ -92,5 +93,4 @@ export type GameActionsT =
   PlaceShipActionT |
   PhasePlayingVsPcTurnT |
   Player1AttackEnemyT |
-
   EndGameActionT
