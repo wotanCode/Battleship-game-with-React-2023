@@ -1,6 +1,6 @@
-# Juego de Batalla Naval con React
+# Batalla Naval en React
 
-Este es un proyecto de práctica para recrear de manera básica el juego de Batalla Naval para un jugador. Se ha construido utilizando Vite con dependencias mínimas, basándose únicamente en React y Redux. El lenguaje de programación utilizado es TypeScript.
+Proyecto de práctica para recrear una versión básica del juego Batalla Naval para un jugador.. Se ha construido utilizando Vite con dependencias mínimas, basándose únicamente en React y Redux. El lenguaje de programación utilizado es TypeScript.
 
 ![Captura de pantalla del juego](README_IMG/03_partida.png)
 
